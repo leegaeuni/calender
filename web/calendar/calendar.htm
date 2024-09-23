@@ -1,0 +1,78 @@
+<?php include_once $_SERVER['DOCUMENT_ROOT'].'/inc/header.php'; ?>
+<div class="calendar-container">
+    <div class="calendar-header">
+        <i class="fa-solid fa-chevron-left"></i>
+        <div class="year-month"></div>
+        <i class="fa-solid fa-chevron-right"></i>
+    </div>
+    <div class="calendar-body">
+        <div class="days">
+            <div class="day">SUN</div>
+            <div class="day">MON</div>
+            <div class="day">TUE</div>
+            <div class="day">WED</div>
+            <div class="day">THU</div>
+            <div class="day">FRI</div>
+            <div class="day">SAT</div>
+        </div>
+        <div class="dates"></div>
+    </div>
+</div>
+<?php include_once $_SERVER['DOCUMENT_ROOT'].'/inc/footer.php'; ?>
+<script type="text/javascript">
+    window.addEventListener("DOMContentLoaded", function () {
+        const days = document.querySelector(".days");
+        days.firstElementChild.style.color = "red"; // 일요일
+        days.lastElementChild.style.color = "#00adff";
+
+        renderCalendar();
+    });
+
+    function renderCalendar() {
+        const yearMonth = document.querySelector(".year-month");
+        const calendar = document.querySelector(".dates");
+
+        // 1. 현재 날짜 구하기
+        var date = new Date();                                              // 현재 날짜(로컬 기준) 가져오기
+        var utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000);  // utc 표준시 도출
+        var kstGap = 9 * 60 * 60 * 1000;                                    // 한국 kst 기준시간 더하기
+        var today = new Date(utc + kstGap);                                 // 한국 시간으로 date 객체 만들기(오늘)
+
+        var currentYear = today.getFullYear();
+        var currentMonth = today.getMonth();
+        var currentDate = today.getDate();
+        var currentDay = today.getDay();
+
+        yearMonth.innerHTML = "<h1>" +currentYear + "." +  currentMonth + "</h1>";
+
+        // 지난달 마지막 일, 요일
+        var prevLastDate = new Date(currentYear, currentMonth, 0);
+        var prevDate = prevLastDate.getDate();
+        var prevDay = prevLastDate.getDay();
+
+        // 이번달 마지막 일, 요일
+        var endDay = new Date(currentYear, currentMonth + 1, 0);
+        var lastDate = endDay.getDate();
+        var lastDay = endDay.getDay();
+
+        // 지난달 렌더링
+        for (let i = prevDate - prevDay; i <= prevDate; i++) {
+            // console.log(i);
+        }
+
+        for (let k = 1; k <= lastDate; k++) {
+            calendar.innerHTML = calendar.innerHTML + "<div class='date'>" + "<span>" + k + "</span>"+ "</div>";
+        }
+
+        for (let n = 1; n <= 6 - lastDay; n++) {
+            calendar.innerHTML = calendar.innerHTML + "<div class='date disabled'>" + n + "</div>";
+        }
+
+        // 오늘 날짜 표기
+        if (today.getMonth() === currentMonth) {
+            var currentMonthDate = document.querySelectorAll(".date");
+            currentMonthDate[currentDate - 1].classList.add('today');
+        }
+
+    }
+</script>
