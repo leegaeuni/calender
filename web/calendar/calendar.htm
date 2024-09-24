@@ -25,18 +25,18 @@
         days.firstElementChild.style.color = "#ff0000"; // 일요일
         days.lastElementChild.style.color = "#00adff";
 
-        renderCalendar2();
+        renderCalendar();
 
         document.querySelector(".prev").addEventListener("click", () => {
-            renderCalendar2("prev");
+            renderCalendar("prev");
         });
 
         document.querySelector(".next").addEventListener("click", () => {
-            renderCalendar2("next");
+            renderCalendar("next");
         });
     });
 
-    function renderCalendar2(mode) {
+    function renderCalendar(mode) {
         // 1. mode 를 통해 페이지 처음 로드 됐을 때, 이전 또는 다음 버튼을 클릭했을 때를 구분하자
         const yearMonth = document.querySelector(".year-month");
         const calendarBody = document.querySelector(".dates");
@@ -143,58 +143,5 @@
             let currentMonthDate = document.querySelectorAll(".date");
             currentMonthDate[currentDate - 1].classList.add('today');
         }
-    }
-
-
-
-
-    function renderCalendar() {
-        // 이전, 다음 달 클릭시 로직 생각하기
-        // 일요일, 토요일 날짜 color 적용하기
-        const yearMonth = document.querySelector(".year-month");
-        const calendar = document.querySelector(".dates");
-
-        // 1. 현재 날짜 구하기
-        let date = new Date();                                              // 현재 날짜(로컬 기준) 가져오기
-        let utc = date.getTime() + (date.getTimezoneOffset() * 60 * 1000);  // utc 표준시 도출
-        let kstGap = 9 * 60 * 60 * 1000;                                    // 한국 kst 기준시간 더하기
-        let today = new Date(utc + kstGap);                                 // 한국 시간으로 date 객체 만들기(오늘)
-
-        let currentYear = today.getFullYear();
-        let currentMonth = today.getMonth();
-        let currentDate = today.getDate();
-        let currentDay = today.getDay();
-
-        yearMonth.innerHTML = "<h1>" +currentYear + "." +  (currentMonth + 1) + "</h1>";
-
-        // 지난달 마지막 일, 요일
-        let prevLastDate = new Date(currentYear, currentMonth, 0);
-        let prevDate = prevLastDate.getDate();
-        let prevDay = prevLastDate.getDay();
-
-        // 이번달 마지막 일, 요일
-        let endDay = new Date(currentYear, currentMonth + 1, 0);
-        let lastDate = endDay.getDate();
-        let lastDay = endDay.getDay();
-
-        // 지난달 렌더링
-        for (let i = prevDate - prevDay; i <= prevDate; i++) {
-            // console.log(i);
-        }
-
-        for (let k = 1; k <= lastDate; k++) {
-            calendar.innerHTML = calendar.innerHTML + "<div class='date'>" + "<span>" + k + "</span>"+ "</div>";
-        }
-
-        for (let n = 1; n <= 6 - lastDay; n++) {
-            calendar.innerHTML = calendar.innerHTML + "<div class='date disabled'>" + n + "</div>";
-        }
-
-        // 오늘 날짜 표기
-        if (today.getMonth() === currentMonth) {
-            let currentMonthDate = document.querySelectorAll(".date");
-            currentMonthDate[currentDate - 1].classList.add('today');
-        }
-
     }
 </script>
