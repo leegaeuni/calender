@@ -19,6 +19,9 @@ body {
                 margin-left: 10rem;
                 margin-right: 10rem;
             }
+            .prev, .next {
+                cursor: pointer;
+            }
         }
         .calendar-body {
             width: calc(100% - 20%);

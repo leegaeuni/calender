@@ -22,6 +22,9 @@ body .calendar-container .calendar-header .year-month {
   margin-left: 10rem;
   margin-right: 10rem;
 }
+body .calendar-container .calendar-header .prev, body .calendar-container .calendar-header .next {
+  cursor: pointer;
+}
 body .calendar-container .calendar-body {
   width: 80%;
   height: fit-content;
