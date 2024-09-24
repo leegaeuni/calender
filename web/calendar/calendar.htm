@@ -139,7 +139,7 @@
 
 
         // 오늘 날짜 표기
-        if (today.getMonth() === currentMonth) {
+        if (today.getFullYear() === currentYear && today.getMonth() === currentMonth) {
             let currentMonthDate = document.querySelectorAll(".date");
             currentMonthDate[currentDate - 1].classList.add('today');
         }
